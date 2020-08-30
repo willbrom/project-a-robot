@@ -61,6 +61,7 @@ const runRobot = (state, robot, memory) => {
         }
         let action = robot(state);
         state = state.move(action.direction);
+        console.log(`Moved to ${state.place}`);
     }
 };
 
