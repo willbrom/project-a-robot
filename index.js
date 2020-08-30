@@ -76,7 +76,7 @@ const randomRobot = (state) => {
     return {direction: randomPick(roadGraph[state.place])};
 };
 
-const randomState = (parcelCount) => {
+const randomState = (parcelCount = 5) => {
     let parcels = [];
     for (let i = 0; i < parcelCount; i++) {
         let place = randomPick(Object.keys(roadGraph));
