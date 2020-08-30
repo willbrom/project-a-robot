@@ -52,10 +52,49 @@ class VillageState {
     }
 }
 
+// start here
+const runRobot = (state, robot, memory) => {
+    for (let i = 0;; i++) {
+        if (state.parcels.length == 0) {
+            console.log(`Done in ${i} moves`);
+            break;
+        }
+        let action = robot(state);
+        state = state.move(action.direction);
+    }
+};
+
+// randomly pick an index in an array
+const randomPick = (array) => {
+    let index = Math.floor(Math.random()  * array.length);
+    return array[index];
+};
+
+// returns a random reachable direction to move towards
+const randomRobot = (state) => {
+    return {direction: randomPick(roadGraph[state.place])};
+};
+
+const randomState = (parcelCount) => {
+    let parcels = [];
+    for (let i = 0; i < parcelCount; i++) {
+        let place = randomPick(Object.keys(roadGraph));
+        let address;
+        do {
+            address = randomPick(Object.keys(roadGraph));
+        } while(place == address);
+
+        parcels.push({place, address});
+    }
+
+    return new VillageState("Post Office", parcels);
+};
 
 // test
-//console.log(roadGraph);
+console.log(runRobot(randomState(5), randomRobot));
+//console.log(randomRobot(new VillageState("Post Office")));
 
+/*
 let parcels = [
     {place: "Post Office", address: "Alice's House"},
     {place: "Post Office", address: "Bob's House"},
@@ -72,4 +111,4 @@ next = next.move("Bob's House");
 console.log(next);
 
 next = next.move("Town Hall");
-console.log(next);
+console.log(next); */
