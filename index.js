@@ -28,5 +28,45 @@ const buildGraph = (edges) => {
 
 const roadGraph = buildGraph(roads);
 
+// creates a state that is used by the robot to view the village
+// the robot views the village as place (it's position) and parcels (need to be delivered to specific places)
+class VillageState {
+    constructor(place, parcels) {
+        this.place = place;
+        this.parcels = parcels;
+    }
+
+    // returns a new VillageState with an updated place (robots current position)
+    // and upadtes parcels (parcels will be moved to the new position and those that need to be delivered to the new position will be delivered)
+    move(destination) {
+        if (destination == this.place) return this;
+        let parcels = this.parcels.map(p => {
+            // moving parcels to destination
+            if (p.place != this.place) return p;
+            return {place: destination, address: p.address};
+        }).filter(p => p.place != p.address); // delivering parcels when they reach address
+        return new VillageState(destination, parcels);
+    }
+}
+
+
 // test
-console.log(roadGraph.Farm);
+//console.log(roadGraph);
+
+let parcels = [
+    {place: "Post Office", address: "Alice's House"},
+    {place: "Post Office", address: "Bob's House"},
+    {place: "Bob's House", address: "Town Hall"}
+];
+
+let first = new VillageState("Post Office", parcels);
+console.log(first);
+
+let next = first.move("Alice's House");
+console.log(next);
+
+next = next.move("Bob's House");
+console.log(next);
+
+next = next.move("Town Hall");
+console.log(next);
