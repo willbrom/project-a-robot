@@ -40,9 +40,12 @@ class VillageState {
     // and upadtes parcels (parcels will be moved to the new position and those that need to be delivered to the new position will be delivered)
     move(destination) {
         if (destination == this.place) return this;
+        // the map takes care of the moving and the filter the delivering
         let parcels = this.parcels.map(p => {
             // moving parcels to destination
+            // if parcel has not been picked yet return parcel w/o any change
             if (p.place != this.place) return p;
+            // parcels moves with the robot i.e there place property gets updated to match the current position
             return {place: destination, address: p.address};
         }).filter(p => p.place != p.address); // delivering parcels when they reach address
         return new VillageState(destination, parcels);
