@@ -92,7 +92,8 @@ const routeRobot = (state, memory) => {
     return {direction: memory[0], memory: memory.slice(1)};
 };
 
-const randomState = (parcelCount = 5) => {
+// create random parcels
+VillageState.random = (parcelCount = 5) => {
     let parcels = [];
     for (let i = 0; i < parcelCount; i++) {
         let place = randomPick(Object.keys(roadGraph));
@@ -108,7 +109,7 @@ const randomState = (parcelCount = 5) => {
 };
 
 // test
-runRobot(randomState(5), routeRobot);
+runRobot(VillageState.random(), routeRobot);
 //console.log(randomRobot(new VillageState("Post Office")));
 
 /*
