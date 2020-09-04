@@ -1,12 +1,4 @@
-const roads = [
-    "Alice's House-Bob's House",   "Alice's House-Cabin",
-    "Alice's House-Post Office",   "Bob's House-Town Hall",
-    "Daria's House-Ernie's House", "Daria's House-Town Hall",
-    "Ernie's House-Grete's House", "Grete's House-Farm",
-    "Grete's House-Shop",          "Marketplace-Farm",
-    "Marketplace-Post Office",     "Marketplace-Shop",
-    "Marketplace-Town Hall",       "Shop-Town Hall"
-];
+const roads = require('./roads');
 
 const mailRoute = [
     "Alice's House", "Cabin", "Alice's House", "Bob's House",
@@ -33,7 +25,14 @@ const buildGraph = (edges) => {
     return graph;
 };
 
-const roadGraph = buildGraph(roads);
+const roadGraph = buildGraph(roads.roads);
+
+const findRoute = (graph, from ,to ) => {
+    let work = [{at: from, route: []}];
+    for (let i = 0; i < graph[from].length; i++) {
+        console.log(graph[from][i]);
+    }
+};
 
 // creates a state that is used by the robot to view the village
 // the robot views the village as place (it's position) and parcels (need to be delivered to specific places)
@@ -109,7 +108,10 @@ VillageState.random = (parcelCount = 5) => {
 };
 
 // test
-runRobot(VillageState.random(), routeRobot);
+findRoute(roadGraph, 'Post Office', 'Farm');
+//console.log(roadGraph['Farm'].includes('Marketplacea'));
+
+//runRobot(VillageState.random(), routeRobot);
 //console.log(randomRobot(new VillageState("Post Office")));
 
 /*
