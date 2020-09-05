@@ -1,4 +1,4 @@
-const roads = require('./roads');
+const {roads} = require('./roads');
 
 const mailRoute = [
     "Alice's House", "Cabin", "Alice's House", "Bob's House",
@@ -25,7 +25,7 @@ const buildGraph = (edges) => {
     return graph;
 };
 
-const roadGraph = buildGraph(roads.roads);
+const roadGraph = buildGraph(roads);
 
 const findRoute = (graph, from ,to ) => {
     let work = [{at: from, route: []}];
