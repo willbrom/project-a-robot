@@ -1,4 +1,4 @@
-const {roads} = require('./roads');
+const {roads} = require('roads.js');
 
 const mailRoute = [
     "Alice's House", "Cabin", "Alice's House", "Bob's House",
